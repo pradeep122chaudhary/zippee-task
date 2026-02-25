@@ -16,10 +16,17 @@ class TaskSerializer(serializers.ModelSerializer):
             "title",
             "description",
             "completed",
+            "priority",
+            "status",
+            "due_date",
+            "is_active",
+            "tags",
+            "estimated_time",
+            "completed_at",
             "created_at",
             "updated_at",
         )
-        read_only_fields = ("id", "user_name", "created_at", "updated_at")
+        read_only_fields = ("id", "user_name", "completed_at", "created_at", "updated_at")
 
     def get_user_name(self, obj) -> str:
         full_name = f"{obj.user.first_name} {obj.user.last_name}".strip()

@@ -67,7 +67,20 @@ class TaskAPITests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data["task"]["title"], payload["title"])
+        self.assertEqual(response.data["task"]["priority"], "MEDIUM")
+        self.assertEqual(response.data["task"]["status"], "PENDING")
         self.assertTrue(Task.objects.filter(user=self.user, title=payload["title"]).exists())
+
+    def test_completed_task_sets_completed_at(self) -> None:
+        self.client.force_authenticate(user=self.user)
+        payload = {
+            "title": "Complete migration",
+            "description": "Done",
+            "completed": True,
+        }
+        response = self.client.post(self.list_url, payload, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIsNotNone(response.data["task"]["completed_at"])
 
     def test_get_task_list(self) -> None:
         Task.objects.create(user=self.user, title="Second Owner Task", completed=True)
