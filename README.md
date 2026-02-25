@@ -1,6 +1,6 @@
 # Task Manager REST API (Django REST Framework - APIView Only)
 
-Production-ready Task Manager API built with Django REST Framework using `APIView` (no ViewSets / GenericViewSets / ModelViewSets).
+Production-ready Task Manager API built with Django REST Framework using `APIView
 
 ## Project Overview
 
